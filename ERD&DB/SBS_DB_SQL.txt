@@ -1,0 +1,362 @@
+﻿/*
+Created: 2023-05-26
+Modified: 2023-06-07
+Model: Oracle 11g Release 2
+Database: Oracle 11g Release 2
+*/
+
+
+-- Create tables section -------------------------------------------------
+
+-- Table Drama_genre
+
+CREATE TABLE Drama_genre(
+  genre_number Varchar2(20 ) NOT NULL,
+  genre_name Varchar2(30 ) NOT NULL
+)
+;
+
+-- Add keys for table Drama_genre
+
+ALTER TABLE Drama_genre ADD CONSTRAINT PK_Drama_genre PRIMARY KEY (genre_number)
+;
+
+-- Table Viewer_ratings
+
+CREATE TABLE Viewer_ratings(
+  ViewerRatings_Number Varchar2(30 ) NOT NULL,
+  highest_viewerRating Number(10,1),
+  lowest_viewerRating Number(10,1),
+  dramaNumber Varchar2(30 )
+)
+;
+
+-- Create indexes for table Viewer_ratings
+
+CREATE INDEX IX_Relationship14 ON Viewer_ratings (dramaNumber)
+;
+
+-- Add keys for table Viewer_ratings
+
+ALTER TABLE Viewer_ratings ADD CONSTRAINT PK_Viewer_ratings PRIMARY KEY (ViewerRatings_Number)
+;
+
+-- Table ProductionCrew
+
+CREATE TABLE ProductionCrew(
+  productionCrew_ID Varchar2(30 ) NOT NULL,
+  productionCrew_name Varchar2(30 ) NOT NULL,
+  work Varchar2(30 ) NOT NULL,
+  salary Integer NOT NULL,
+  department Varchar2(30 )
+)
+;
+
+-- Create indexes for table ProductionCrew
+
+CREATE INDEX IX_Relationship16 ON ProductionCrew (department)
+;
+
+-- Add keys for table ProductionCrew
+
+ALTER TABLE ProductionCrew ADD CONSTRAINT PK_ProductionCrew PRIMARY KEY (productionCrew_ID)
+;
+
+-- Table Department
+
+CREATE TABLE Department(
+  department Varchar2(30 ) NOT NULL,
+  departmentName Varchar2(30 ) NOT NULL
+)
+;
+
+-- Add keys for table Department
+
+ALTER TABLE Department ADD CONSTRAINT PK_Department PRIMARY KEY (department)
+;
+
+-- Table AudienceRating
+
+CREATE TABLE AudienceRating(
+  audienceRating_number Varchar2(30 ) NOT NULL,
+  audienceRating_name Varchar2(30 ) NOT NULL
+)
+;
+
+-- Add keys for table AudienceRating
+
+ALTER TABLE AudienceRating ADD CONSTRAINT PK_AudienceRating PRIMARY KEY (audienceRating_number)
+;
+
+-- Table Drama
+
+CREATE TABLE Drama(
+  dramaNumber Varchar2(30 ) NOT NULL,
+  dramaName Varchar2(100 ) NOT NULL,
+  drama_broadcastYear Varchar2(30 ) NOT NULL,
+  drama_broadcastTime Varchar2(30 ) NOT NULL,
+  roundOf Integer NOT NULL,
+  genre_number Varchar2(20 ),
+  audienceRating_number Varchar2(30 ),
+  broadcastNumber Varchar2(30 ) NOT NULL
+)
+;
+
+-- Create indexes for table Drama
+
+CREATE INDEX IX_Relationship13 ON Drama (genre_number)
+;
+
+CREATE INDEX IX_Relationship20 ON Drama (audienceRating_number)
+;
+
+CREATE INDEX IX_Relationship11 ON Drama (broadcastNumber)
+;
+
+-- Add keys for table Drama
+
+ALTER TABLE Drama ADD CONSTRAINT PK_Drama PRIMARY KEY (dramaNumber)
+;
+
+-- Table Appear
+
+CREATE TABLE Appear(
+  appear_number Varchar2(30 ) NOT NULL,
+  position Varchar2(30 ) NOT NULL,
+  dramaNumber Varchar2(30 ),
+  enter_number Varchar2(30 ),
+  castNumber Varchar2(30 )
+)
+;
+
+-- Create indexes for table Appear
+
+CREATE INDEX IX_Relationship5 ON Appear (dramaNumber)
+;
+
+CREATE INDEX IX_Relationship7 ON Appear (enter_number)
+;
+
+CREATE INDEX IX_Relationship8 ON Appear (dramaNumber)
+;
+
+CREATE INDEX IX_Relationship9 ON Appear (enter_number)
+;
+
+CREATE INDEX IX_Relationship12 ON Appear (castNumber)
+;
+
+-- Add keys for table Appear
+
+ALTER TABLE Appear ADD CONSTRAINT PK_Appear PRIMARY KEY (appear_number)
+;
+
+-- Table Celebrity
+
+CREATE TABLE Celebrity(
+  castNumber Varchar2(30 ) NOT NULL,
+  cast_name Varchar2(30 ) NOT NULL,
+  birthDay Date,
+  gender Varchar2(10 ) NOT NULL,
+  guarantee Integer,
+  debutYear Varchar2(30 ),
+  stature Integer,
+  agency_number Varchar2(30 )
+)
+;
+
+-- Create indexes for table Celebrity
+
+CREATE INDEX IX_Relationship10 ON Celebrity (agency_number)
+;
+
+CREATE INDEX IX_Relationship11 ON Celebrity (agency_number)
+;
+
+-- Add keys for table Celebrity
+
+ALTER TABLE Celebrity ADD CONSTRAINT PK_Celebrity PRIMARY KEY (castNumber)
+;
+
+-- Table Agency
+
+CREATE TABLE Agency(
+  agency_number Varchar2(30 ) NOT NULL,
+  agency_name Varchar2(30 )
+)
+;
+
+-- Add keys for table Agency
+
+ALTER TABLE Agency ADD CONSTRAINT PK_Agency PRIMARY KEY (agency_number)
+;
+
+-- Table Entertainment
+
+CREATE TABLE Entertainment(
+  enter_number Varchar2(30 ) NOT NULL,
+  enter_name Varchar2(100 ) NOT NULL,
+  enter_broadcastStartYear Varchar2(30 ) NOT NULL,
+  enter_broadcastEndYear Varchar2(30 ),
+  enter_broadcastTime Varchar2(30 ),
+  audienceRating_number Varchar2(30 ),
+  broadcastNumber Varchar2(30 )
+)
+;
+
+-- Create indexes for table Entertainment
+
+CREATE INDEX IX_Relationship21 ON Entertainment (audienceRating_number)
+;
+
+CREATE INDEX IX_Relationship12 ON Entertainment (broadcastNumber)
+;
+
+-- Add keys for table Entertainment
+
+ALTER TABLE Entertainment ADD CONSTRAINT PK_Entertainment PRIMARY KEY (enter_number)
+;
+
+-- Table Production
+
+CREATE TABLE Production(
+  production_number Varchar2(30 ) NOT NULL,
+  proction_job Varchar2(30 ) NOT NULL,
+  dramaNumber Varchar2(30 ),
+  enter_number Varchar2(30 ),
+  productionCrew_ID Varchar2(30 )
+)
+;
+
+-- Create indexes for table Production
+
+CREATE INDEX IX_Relationship17 ON Production (dramaNumber)
+;
+
+CREATE INDEX IX_Relationship18 ON Production (enter_number)
+;
+
+CREATE INDEX IX_Relationship19 ON Production (productionCrew_ID)
+;
+
+-- Add keys for table Production
+
+ALTER TABLE Production ADD CONSTRAINT PK_Production PRIMARY KEY (production_number)
+;
+
+-- Table ProgramType
+
+CREATE TABLE ProgramType(
+  program_number Varchar2(30 ) NOT NULL,
+  program_type Varchar2(30 ) NOT NULL
+)
+;
+
+-- Add keys for table ProgramType
+
+ALTER TABLE ProgramType ADD CONSTRAINT PK_ProgramType PRIMARY KEY (program_number)
+;
+
+-- Table broadcastDay
+
+CREATE TABLE broadcastDay(
+  broadcastNumber Varchar2(30 ) NOT NULL,
+  broadcastDay Varchar2(30 ) NOT NULL
+)
+;
+
+-- Add keys for table broadcastDay
+
+ALTER TABLE broadcastDay ADD CONSTRAINT PK_broadcastDay PRIMARY KEY (broadcastNumber)
+;
+
+
+-- Create foreign keys (relationships) section ------------------------------------------------- 
+
+ALTER TABLE Appear ADD CONSTRAINT Relationship5 FOREIGN KEY (dramaNumber) REFERENCES Drama (dramaNumber)
+;
+
+
+
+ALTER TABLE Appear ADD CONSTRAINT Relationship7 FOREIGN KEY (enter_number) REFERENCES Entertainment (enter_number)
+;
+
+
+
+ALTER TABLE Appear ADD CONSTRAINT Drama_Appear FOREIGN KEY (dramaNumber) REFERENCES Drama (dramaNumber)
+;
+
+
+
+ALTER TABLE Appear ADD CONSTRAINT Enter_Appear FOREIGN KEY (enter_number) REFERENCES Entertainment (enter_number)
+;
+
+
+
+ALTER TABLE Celebrity ADD CONSTRAINT Relationship10 FOREIGN KEY (agency_number) REFERENCES Agency (agency_number)
+;
+
+
+
+ALTER TABLE Celebrity ADD CONSTRAINT Agency_ActorsAndHosts FOREIGN KEY (agency_number) REFERENCES Agency (agency_number)
+;
+
+
+
+ALTER TABLE Appear ADD CONSTRAINT Celebrity_Appear FOREIGN KEY (castNumber) REFERENCES Celebrity (castNumber)
+;
+
+
+
+ALTER TABLE Drama ADD CONSTRAINT Genre_Drama FOREIGN KEY (genre_number) REFERENCES Drama_genre (genre_number)
+;
+
+
+
+ALTER TABLE Viewer_ratings ADD CONSTRAINT Drama_ViewerRatings FOREIGN KEY (dramaNumber) REFERENCES Drama (dramaNumber)
+;
+
+
+
+ALTER TABLE ProductionCrew ADD CONSTRAINT Department_Crew FOREIGN KEY (department) REFERENCES Department (department)
+;
+
+
+
+ALTER TABLE Production ADD CONSTRAINT Drama_Production FOREIGN KEY (dramaNumber) REFERENCES Drama (dramaNumber)
+;
+
+
+
+ALTER TABLE Production ADD CONSTRAINT Enter_Procution FOREIGN KEY (enter_number) REFERENCES Entertainment (enter_number)
+;
+
+
+
+ALTER TABLE Production ADD CONSTRAINT Crew_Production FOREIGN KEY (productionCrew_ID) REFERENCES ProductionCrew (productionCrew_ID)
+;
+
+
+
+ALTER TABLE Drama ADD CONSTRAINT AudienceRating_Drama FOREIGN KEY (audienceRating_number) REFERENCES AudienceRating (audienceRating_number)
+;
+
+
+
+ALTER TABLE Entertainment ADD CONSTRAINT AudienceRating_Enter FOREIGN KEY (audienceRating_number) REFERENCES AudienceRating (audienceRating_number)
+;
+
+
+
+ALTER TABLE Drama ADD CONSTRAINT Drama_BroadCastDay FOREIGN KEY (broadcastNumber) REFERENCES broadcastDay (broadcastNumber)
+;
+
+
+
+ALTER TABLE Entertainment ADD CONSTRAINT Fun_BroadCast FOREIGN KEY (broadcastNumber) REFERENCES broadcastDay (broadcastNumber)
+;
+
+
+
+
+

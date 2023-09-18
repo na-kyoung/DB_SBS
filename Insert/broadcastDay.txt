@@ -1,0 +1,14 @@
+-- 방송요일 테이블
+-- insert into broadcastday values(broadcastNumber, broadcastDay)
+insert into broadcastday values('1','월');
+insert into broadcastday values('2','화');
+insert into broadcastday values('3','수');
+insert into broadcastday values('4','목');
+insert into broadcastday values('5','금');
+insert into broadcastday values('6','토');
+insert into broadcastday values('7','일');
+insert into broadcastday values('8','월화');
+insert into broadcastday values('9','수목');
+insert into broadcastday values('10','금토');
+insert into broadcastday values('11','주말');
+insert into broadcastday values('12','평일');

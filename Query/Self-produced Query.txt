@@ -1,0 +1,86 @@
+-- Self-produced Query
+-- 권나경 (nakyoung_kwon@naver.com)
+-- https://github.com/na-kyoung
+
+-- 출력 조정문
+col cast_name format a10
+col dramaName format a22
+col enter_name format a20
+col productionCrew_name format a10
+col debutyear format a9
+col agency_name format a15
+col genre_name format a10
+col highest_viewerRating format 99.9
+col lowest_viewerRating format 99.9
+
+
+-- 1. 1970년도 이전에 데뷔한 연예인의 이름, 나이, 데뷔연도, 소속사를 출력하시오. (단, 나이는 생년월일로 계산해야 함.)
+
+select c.cast_name, trunc(months_between(sysdate, c.birthDay)/12) as age, c.debutYear, a.agency_name
+from Celebrity c, Agency a
+where c.agency_number=a.agency_number
+and c.debutYear <= '1970';
+
+
+-- 2. 감독 주동민이 연출한 드라마명, 장르, 최고 시청률을 출력하시오.
+
+select d.dramaName, g.genre_name, v.highest_viewerRating
+from Drama d, Viewer_ratings v, Drama_genre g
+where d.dramaNumber=v.dramaNumber
+and d.genre_number=g.genre_number
+and d.dramaNumber in(
+	select p.dramaNumber
+	from Production p, ProductionCrew pc
+	where p.productionCrew_ID=pc.productionCrew_ID
+	and pc.productionCrew_Name = '주동민')
+order by d.dramaName;
+
+
+-- 3. 2017년도에 방영한 예능의 이름, 연출에 참여한 스태프 이름과 직업을 출력하시오. (단, 스태프ID로 직업을 PD/작가로 구분해야 함.)
+
+select e.enter_name, pc.productionCrew_Name,
+	case when pc.productionCrew_ID like 'W%' then '작가'
+	when pc.productionCrew_ID like 'PD%' then 'PD'
+	end as Job
+from Entertainment e, Production p, ProductionCrew pc
+where p.enter_number=e.enter_number
+and p.productionCrew_ID=pc.productionCrew_ID
+and e.enter_number in(
+	select enter_number
+	from Entertainment
+	where enter_broadcastStartYear = '2017')
+order by e.enter_name, pc.productionCrew_Name asc;
+
+
+-- 4. 작가 김은숙이 집필한 드라마 중 최고 시청률이 20이상인 드라마명, 출연 배우, 배우의 페이를 출력하시오. (단, 페이=회차별 개런티*드라마 회차로 구해야 함.)
+
+select d.dramaName, c.cast_name, (c.guarantee*d.roundOf)
+from Drama d, Appear a, Celebrity c
+where d.dramaNumber = a.dramaNumber
+and a.castNumber = c.castNumber
+and d.dramaNumber in(
+	select dramaNumber
+	from Viewer_ratings
+	where highest_viewerRating >= 20.0
+	and dramaNumber in(
+		select p.dramaNumber
+		from Production p, ProductionCrew pc
+		where p.productionCrew_ID=pc.productionCrew_ID
+		and pc.productionCrew_name = '김은숙'))
+order by d.dramaName, c.cast_name asc;
+
+
+-- 5. BH엔터테인먼트 소속인 여배우의 이름, 출연 드라마명, 최고 시청률, 최저 시청률을 출력하시오.
+
+select c.cast_name, d.dramaName, v.highest_viewerRating, v.lowest_viewerRating
+from Drama d, Viewer_ratings v, Appear ap, Celebrity c
+where ap.castNumber = c.castNumber
+and d.dramaNumber = ap.dramaNumber
+and v.dramaNumber = d.dramaNumber
+and c.cast_name in(
+	select c.cast_name
+	from Celebrity c, Agency ag
+	where ag.agency_number = c.agency_number
+	and c.gender = '여'
+	and ag.agency_name = 'BH')
+order by c.cast_name, d.dramaName asc;

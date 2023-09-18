@@ -1,0 +1,35 @@
+-- 드라마장르 테이블
+--insert into drama_genre(drama_genre, genre_name)
+insert into drama_genre values('G1','의학');
+insert into drama_genre values('G2','로맨스');
+insert into drama_genre values('G3','사극');
+insert into drama_genre values('G4','퓨전 사극');
+insert into drama_genre values('G5','드라마');
+insert into drama_genre values('G6','스포츠');
+insert into drama_genre values('G7','가족');
+insert into drama_genre values('G8','복수');
+insert into drama_genre values('G9','멜로');
+insert into drama_genre values('G10','밴드');
+insert into drama_genre values('G11','미스터리');
+insert into drama_genre values('G12','막장');
+insert into drama_genre values('G13','음악');
+insert into drama_genre values('G14','법정');
+insert into drama_genre values('G15','액션');
+insert into drama_genre values('G16','청춘');
+insert into drama_genre values('G17','판타지');
+insert into drama_genre values('G18','뮤지컬');
+insert into drama_genre values('G19','코미디');
+insert into drama_genre values('G20','연속극');
+insert into drama_genre values('G21','피카레스크');
+insert into drama_genre values('G22','스릴러');
+insert into drama_genre values('G23','정치');
+insert into drama_genre values('G24','수사');
+insert into drama_genre values('G25','호러');
+insert into drama_genre values('G26','로맨스 코미디');
+insert into drama_genre values('G27','범죄');
+insert into drama_genre values('G28','시트콤');
+insert into drama_genre values('G29','농촌');
+insert into drama_genre values('G30','로맨스 판타지');
+insert into drama_genre values('G31','첩보');
+insert into drama_genre values('G32','오피스');
+insert into drama_genre values('G33','서스펜스');

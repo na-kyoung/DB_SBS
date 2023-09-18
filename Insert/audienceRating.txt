@@ -1,0 +1,7 @@
+-- 시청등급 테이블
+-- insert into audienceRating values(audienceRating_number, audienceRating_name)
+insert into audienceRating values('TV-A','전체관람가');
+insert into audienceRating values('TV-12','12세 관람가');
+insert into audienceRating values('TV-15','15세 관람가');
+insert into audienceRating values('TV-19','청소년관람불가');
+insert into audienceRating values('TV-NN','제한관람가');
