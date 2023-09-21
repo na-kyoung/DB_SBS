@@ -9,18 +9,28 @@ SBS 방송국 프로그램 정보를 데이터베이스로 직접 본다면?
 - 직접 ERD를 설계하고 DB를 구현함으로써 무결성, 유연성, 확장성을 고려한 효율적인 데이터베이스를 제작
 - 직접 쿼리를 제작함으로써 데이터베이스를 다양한 방법으로 출력하고 활용
 
+<br />
+
 ## 도구
 Oracle DB, Toad Data Modeler
 
+<br />
+
 ## 기간
 2023.05.12 - 2023.06.12
+
+<br />
 
 ## ERD
 KOR.ver
 ![ERD](https://github.com/na-kyoung/DB_SBS/assets/137421820/4d565dfd-94c0-4456-a834-c3f7cd6dee9e)
 
+<br />
+
 ENG.ver
 ![ERD_eng](https://github.com/na-kyoung/DB_SBS/assets/137421820/e328f159-215d-4c2f-998d-721f65ae5ce3)
+
+<br />
 
 ## 테이블 소개
 - Drama : 드라마 프로그램 정보 (드라마이름, 방영연도, 방영시간, 회차)
@@ -35,6 +45,8 @@ ENG.ver
 - Celebrity : 연예인 정보 (연예인이름, 생년월일, 성별, 개런티, 데뷔연도, 키)
 - Appear : 연예인 출연 정보 (역할)
 - Agency : 연예인 소속사 정보 (소속사명)
+
+<br />
 
 ## 쿼리 제작 결과
 >본인이 제작한 쿼리만 작성하였습니다.
